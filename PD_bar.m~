@@ -15,11 +15,10 @@ function PD_line(x,y,data_error,data_error_type)
 
 if nargin < 2
 
-    x{1} = 1:10;
-    x{2} = 1:10;
+    x{1} = 1:5;
 
-    y{1} = rand(1,10);
-    y{2} = rand(1,10);
+    y{1,:} = rand(1,10);
+    y{1,:} = rand(1,10);
 
     data_error{1} = zeros(1,10)+rand(1,10)*rand*rand;
     data_error{2} = zeros(1,10)+rand(1,10)*rand*rand;
@@ -91,7 +90,7 @@ for which_cond = 1:total_conds
     if data_error{which_cond} ~= 0
         if data_error_type == 1 % Regular error bars
 
-            errorbar(x{which_cond},y{which_cond},data_error{which_cond},...
+            errorbar_var = errorbar(x{which_cond},y{which_cond},data_error{which_cond},...
                 'LineWidth',line_size, ...
                 'Marker',marker, ...
                 'Color',color, ...
@@ -100,6 +99,9 @@ for which_cond = 1:total_conds
                 'MarkerFaceColor' , marker_face_color, ...
                 'MarkerSize'      , marker_size);
 
+            set(errorbar_var(2),
+            
+            
         elseif data_error_type == 2 % Fancy somewhat buggy error gradient
 
             for whichpoint = 1:length(x{which_cond})

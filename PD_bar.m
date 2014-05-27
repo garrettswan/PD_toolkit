@@ -1,4 +1,4 @@
-function PD_line(x,y,data_error,data_error_type)
+function PD_bar(x,y,data_error,data_error_type)
 
 %PD_LINE is designed for line plots
 
@@ -16,10 +16,9 @@ function PD_line(x,y,data_error,data_error_type)
 if nargin < 2
 
     x{1} = 1:10;
-    x{2} = 1:10;
 
-    y{1} = rand(1,10);
-    y{2} = rand(1,10);
+    y{1,:} = rand(1,10);
+    y{1,:} = rand(1,10);
 
     data_error{1} = zeros(1,10)+rand(1,10)*rand*rand;
     data_error{2} = zeros(1,10)+rand(1,10)*rand*rand;
@@ -74,7 +73,7 @@ for which_cond = 1:total_conds
             marker_edge_color = [0 0 0];
             marker_face_color = [0 0 0];
             linestyle = '-';
-            marker = 'o';
+            marker = 'none';
             marker_size = 7;
             line_size = 2;
 
@@ -83,7 +82,7 @@ for which_cond = 1:total_conds
             marker_edge_color = [1 0 0];
             marker_face_color = [1 0 0];
             linestyle = '-';
-            marker = 'o';
+            marker = 'none';
             marker_size = 7;
             line_size = 2;
     end
@@ -91,7 +90,7 @@ for which_cond = 1:total_conds
     if data_error{which_cond} ~= 0
         if data_error_type == 1 % Regular error bars
 
-            errorbar(x{which_cond},y{which_cond},data_error{which_cond},...
+            errorbar_var = errorbar(x{which_cond},y{which_cond},data_error{which_cond},...
                 'LineWidth',line_size, ...
                 'Marker',marker, ...
                 'Color',color, ...
@@ -100,6 +99,8 @@ for which_cond = 1:total_conds
                 'MarkerFaceColor' , marker_face_color, ...
                 'MarkerSize'      , marker_size);
 
+            set(errorbar_var,'LineStyle','none');
+            
         elseif data_error_type == 2 % Fancy somewhat buggy error gradient
 
             for whichpoint = 1:length(x{which_cond})
@@ -119,14 +120,9 @@ for which_cond = 1:total_conds
     end
 
     % Plots the data
-    plot(x{which_cond},y{which_cond},...
-        'LineWidth',line_size, ...
-        'Marker',marker, ...
-        'Color',color, ...
-        'LineStyle',linestyle, ...
-        'MarkerEdgeColor' , marker_edge_color, ...
-        'MarkerFaceColor' , marker_face_color, ...
-        'MarkerSize'      , marker_size);
+    bar(x{which_cond},y{which_cond},...
+        'EdgeColor' , marker_edge_color, ...
+        'FaceColor' , marker_face_color);
 end
 
 %% Global figure parameters
