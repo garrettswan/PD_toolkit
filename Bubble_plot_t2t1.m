@@ -1,4 +1,4 @@
-function Bubble_plot
+function Bubble_plot_t2t1
 
 
 figure('Color',[1 1 1]);
@@ -33,8 +33,10 @@ for which_x = x
 
         y_count = y_count + 1;
 
+        if isnan(y(which_x,y_count))==0
+        
         scatter_size = (pi*(which_y/maximum_size)^2)*1200;
-
+        
         scatter(which_x,y_count,scatter_size, ...
             'MarkerEdgeColor',marker_edge_color,...
             'MarkerFaceColor',marker_face_color,...
@@ -47,6 +49,7 @@ for which_x = x
             'Color',font_color,...
             'HorizontalAlignment',horizontal_alignment);
 
+        end
     end
 end
 
@@ -55,17 +58,18 @@ box off
 set(gca,'YLim',[0 9])
 set(gca,'XLim',[min(x)-1 max(x)+1])
 
+set(gca,'XTickLabel',['    '; sprintf('  0%c',char(176)); ...
+    sprintf('0-2%c',char(176)); ...
+    sprintf('2-4%c',char(176)); ...
+    sprintf('4-6%c',char(176)); ...
+    sprintf(' >6%c',char(176)); '    ']);
 
-set(gca,'XTickLabel',['  '; sprintf('%g%c',x(1),char(176)); ...
-    sprintf('%g%c',x(2),char(176)); ...
-    sprintf('%g%c',x(3),char(176)); ...
-    sprintf('%g%c',x(4),char(176)); ...
-    sprintf('%g%c',x(5),char(176)); '  ']);
+set(gca,'YTickLabel',[' '; '0';'1';'2';'3';'4';'5';'6';'8';' ']);
 
 % Change axis labels
 ylabel_var = ylabel('Lag');
 xlabel_var = xlabel('Eccentricity');
-title_var = title('Accuracy given lag and eccentricity');
+title_var = title('');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...
@@ -77,6 +81,8 @@ set([title_var], ...
 
 set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
 
+set(gca,'FontSize',14);
+
 %Defines the properties of the axes.
 set(gca, ...
     'Box'               , 'off', ... %Turns the box on or off
@@ -87,7 +93,7 @@ set(gca, ...
     'YGrid'             , 'off', ... %Adds a thin grid to the y axis
     'XColor'            , [0 0 0], ... %Changes the color of the x axis
     'YColor'            , [0 0 0], ... %Changes the color of the y axis
-    'YTick'             , 0:1:6, ... %Determines the y axis values displayed in the format ymin:interval:ymax
+    'YTick'             , 0:1:10, ... %Determines the y axis values displayed in the format ymin:interval:ymax
     'LineWidth'         , 1.5);
 
 % Important for getting rid of ticks on the top and right sides
