@@ -15,16 +15,16 @@ function PD_line(x,y,data_error,data_error_type)
 
 if nargin < 2
 
-    x{1} = 1:10;
-    x{2} = 1:10;
+    x{1} = [0 1 2 3 4 6 7 10];
+    x{2} = [0 1 2 3 4 6 7 10];
+    
+    y{1} = [.59 .43 .45 .50 .55 .67 .70 .74];
+    y{2} = [.64 .40 .41 .48 .55 .70 .72 .74];
 
-    y{1} = rand(1,10);
-    y{2} = rand(1,10);
+    data_error{1} = 0;
+    data_error{2} = 0;
 
-    data_error{1} = zeros(1,10)+rand(1,10)*rand*rand;
-    data_error{2} = zeros(1,10)+rand(1,10)*rand*rand;
-
-    data_error_type = 1;
+    data_error_type = 0;
 
 elseif nargin == 2 %
 
@@ -61,7 +61,7 @@ else
 
 end
 
-figure('Color',[1 1 1])
+figure_var = figure('Color',[1 1 1])
 hold on
 
 for which_cond = 1:total_conds
@@ -79,11 +79,11 @@ for which_cond = 1:total_conds
             line_size = 2;
 
         case 2 % Second set of data
-            color = [1 0 0];
-            marker_edge_color = [1 0 0];
-            marker_face_color = [1 0 0];
-            linestyle = '-';
-            marker = 'o';
+            color = [.5 .5 .5];
+            marker_edge_color = [.5 .5 .5];
+            marker_face_color = [.5 .5 .5];
+            linestyle = '--';
+            marker = '^';
             marker_size = 7;
             line_size = 2;
     end
@@ -136,21 +136,31 @@ set(gca,'XLim',[min(x{1})-1 max(x{1})+1])
 set(gca,'XTick',x{1})
 
 % Change axis labels
-ylabel_var = ylabel('Proportion correct');
+ylabel_var = ylabel(['Proportion correct ']);
 xlabel_var = xlabel('Lag');
-title_var = title('Accuracy given lag');
+title_var = title('Hemifield split');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...
-    'fontsize'        , 18 );
+    'fontsize'        , 20 );
 
 set([title_var], ...
-    'fontsize'        , 22, ...
+    'fontsize'        , 24, ...
     'fontweight'      , 'b');
 
 set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
 
-set(gca,'FontSize',14);
+set(gca,'FontSize',18);
+
+% % Rotate y label
+% set(ylabel_var,'Rotation',0,'Position',[-3.75 .5 1]);
+% 
+% % Move GCA over such that y label is in FOV
+% set(gca,'PlotBoxAspectRatioMode','manual')
+% set(gca,'Position',[.2 .1 .6 .7])
+% 
+% figure_pos = get(figure_var,'Position');
+% set(figure_var,'Position',figure_pos+figure_pos*.3)
 
 %Defines the properties of the axes.
 set(gca, ...
@@ -169,7 +179,7 @@ set(gca, ...
 xlims = get(gca,'XLim');
 ylims = get(gca,'YLim');
 
-line([0 max(x{1})+1],[ylims(2) ylims(2)],'Color',[0 0 0], 'LineWidth', 1.5);
+line([-1 max(x{1})+1],[ylims(2) ylims(2)],'Color',[0 0 0], 'LineWidth', 1.5);
 line([max(x{1})+1 max(x{1})+1],ylims,'Color',[0 0 0], 'LineWidth', 1.5);
 
 %Saves the graph as an .eps file, thus allowing alternate programs to

@@ -6,13 +6,11 @@ hold on
 
 maximum_size = 100;
 
-x = [1:5];
+x = [1:3];
 
-y = [NaN	0.66012	0.23684	0.59867	0.58909	0.69045	0.71888	0.75583; ...
-0.50093	0.35052	0.53151	0.63284	0.64253	0.72106	0.73389	0.75891; ...
-0.56497	0.45344	0.52158	0.54442	0.6	0.73837	0.75728	0.81107; ...
-0.62284	0.49171	0.47112	0.51372	0.52603	0.67302	0.70101	0.75405; ...
-0.63543	0.3871	0.42197	0.48387	0.56934	0.68187	0.71212	0.74757];
+y = [.6691 .6349 .7560; ...
+.5086 .6844 .7706; ...
+.5154 .5921 .8077];
 
 y = round(y*100);
 
@@ -55,21 +53,19 @@ end
 
 %% Global figure parameters
 box off
-set(gca,'YLim',[0 9])
+set(gca,'YLim',[0 4])
 set(gca,'XLim',[min(x)-1 max(x)+1])
 
-set(gca,'XTickLabel',['    '; sprintf('  0%c',char(176)); ...
-    sprintf('0-2%c',char(176)); ...
-    sprintf('2-4%c',char(176)); ...
-    sprintf('4-6%c',char(176)); ...
-    sprintf(' >6%c',char(176)); '    ']);
+set(gca,'XTickLabel',['  '; sprintf('0%c',char(176)); ...
+    sprintf('2%c',char(176)); ...
+    sprintf('4%c',char(176)); '  ']);
 
-set(gca,'YTickLabel',[' '; '0';'1';'2';'3';'4';'5';'6';'8';' ']);
+set(gca,'YTickLabel',[' ';'1';'3';'7';' ']);
 
 % Change axis labels
 ylabel_var = ylabel('Lag');
 xlabel_var = xlabel('Eccentricity');
-title_var = title('');
+title_var = title('Eyetracking T2|T1');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...
@@ -82,6 +78,13 @@ set([title_var], ...
 set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
 
 set(gca,'FontSize',14);
+
+% % Rotate y label
+% set(ylabel_var,'Rotation',0,'Position',[-.85 2 1]);
+% 
+% % Move GCA over such that y label is in FOV
+% set(gca,'PlotBoxAspectRatioMode','manual')
+% set(gca,'Position',[.2 .11 .775 .815])
 
 %Defines the properties of the axes.
 set(gca, ...

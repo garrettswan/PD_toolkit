@@ -15,15 +15,19 @@ function PD_line(x,y,data_error,data_error_type)
 
 if nargin < 2
 
-    x{1} = 1:5;
+    x{1} = [0 1 2 3 4 6 7 10];
+    x{2} = [0 1 2 3 4 6 7 10];
+    x{3} = [0 1 2 3 4 6 7 10];
+    
+    y{1} = [nan .82 .32 .62 .60 .71 .74 .83];
+    y{2} = [.64 .49 .61 .64 .58 .81 .78 .82];
+    y{3} = [.73 .47 .48 .46 .58 .71 .71 .72];
+    
+    data_error{1} = 0;
+    data_error{2} = 0;
+    data_error{3} = 0;
 
-    y{1,:} = rand(1,10);
-    y{1,:} = rand(1,10);
-
-    data_error{1} = zeros(1,10)+rand(1,10)*rand*rand;
-    data_error{2} = zeros(1,10)+rand(1,10)*rand*rand;
-
-    data_error_type = 1;
+    data_error_type = 0;
 
 elseif nargin == 2 %
 
@@ -60,7 +64,7 @@ else
 
 end
 
-figure('Color',[1 1 1])
+figure_var = figure('Color',[1 1 1]);
 hold on
 
 for which_cond = 1:total_conds
@@ -78,11 +82,19 @@ for which_cond = 1:total_conds
             line_size = 2;
 
         case 2 % Second set of data
-            color = [1 0 0];
-            marker_edge_color = [1 0 0];
-            marker_face_color = [1 0 0];
-            linestyle = '-';
-            marker = 'o';
+            color = [.3 .3 .3];
+            marker_edge_color = [.3 .3 .3];
+            marker_face_color = [.3 .3 .3];
+            linestyle = '--';
+            marker = '^';
+            marker_size = 7;
+            line_size = 2;
+        case 3 % Second set of data
+            color = [.6 .6 .6];
+            marker_edge_color = [.6 .6 .6];
+            marker_face_color = [.6 .6 .6];
+            linestyle = '-.';
+            marker = 's';
             marker_size = 7;
             line_size = 2;
     end
@@ -90,7 +102,7 @@ for which_cond = 1:total_conds
     if data_error{which_cond} ~= 0
         if data_error_type == 1 % Regular error bars
 
-            errorbar_var = errorbar(x{which_cond},y{which_cond},data_error{which_cond},...
+            errorbar(x{which_cond},y{which_cond},data_error{which_cond},...
                 'LineWidth',line_size, ...
                 'Marker',marker, ...
                 'Color',color, ...
@@ -99,9 +111,6 @@ for which_cond = 1:total_conds
                 'MarkerFaceColor' , marker_face_color, ...
                 'MarkerSize'      , marker_size);
 
-            set(errorbar_var(2),
-            
-            
         elseif data_error_type == 2 % Fancy somewhat buggy error gradient
 
             for whichpoint = 1:length(x{which_cond})
@@ -138,19 +147,31 @@ set(gca,'XLim',[min(x{1})-1 max(x{1})+1])
 set(gca,'XTick',x{1})
 
 % Change axis labels
-ylabel_var = ylabel('Proportion correct');
+ylabel_var = ylabel(['Proportion correct ']);
 xlabel_var = xlabel('Lag');
-title_var = title('Accuracy given lag');
+title_var = title('T1 < 5 degrees from fixation');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...
-    'fontsize'        , 18 );
+    'fontsize'        , 20 );
 
 set([title_var], ...
-    'fontsize'        , 22, ...
+    'fontsize'        , 24, ...
     'fontweight'      , 'b');
 
 set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
+
+set(gca,'FontSize',18);
+
+% % Rotate y label
+% set(ylabel_var,'Rotation',0,'Position',[-3.75 .5 1]);
+% 
+% % Move GCA over such that y label is in FOV
+% set(gca,'PlotBoxAspectRatioMode','manual')
+% set(gca,'Position',[.2 .1 .6 .7])
+% 
+% figure_pos = get(figure_var,'Position');
+% set(figure_var,'Position',figure_pos+figure_pos*.3)
 
 %Defines the properties of the axes.
 set(gca, ...
@@ -169,7 +190,7 @@ set(gca, ...
 xlims = get(gca,'XLim');
 ylims = get(gca,'YLim');
 
-line([0 max(x{1})+1],[ylims(2) ylims(2)],'Color',[0 0 0], 'LineWidth', 1.5);
+line([-1 max(x{1})+1],[ylims(2) ylims(2)],'Color',[0 0 0], 'LineWidth', 1.5);
 line([max(x{1})+1 max(x{1})+1],ylims,'Color',[0 0 0], 'LineWidth', 1.5);
 
 %Saves the graph as an .eps file, thus allowing alternate programs to

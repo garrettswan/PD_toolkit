@@ -15,14 +15,14 @@ function PD_line(x,y,data_error,data_error_type)
 
 if nargin < 2
 
-    x{1} = 1:10;
-    x{2} = 1:10;
+    x{1} = [1 3 7];
+    x{2} = [1 3 7];
+    
+    y{1} = [.70 .63 .75];
+    y{2} = [.52 .60 .79];
 
-    y{1} = rand(1,10);
-    y{2} = rand(1,10);
-
-    data_error{1} = zeros(1,10)+rand(1,10)*rand*rand;
-    data_error{2} = zeros(1,10)+rand(1,10)*rand*rand;
+    data_error{1} = [.04 .04 .04];
+    data_error{2} = [.06 .06 .05];
 
     data_error_type = 1;
 
@@ -61,7 +61,7 @@ else
 
 end
 
-figure('Color',[1 1 1])
+figure_var = figure('Color',[1 1 1]);
 hold on
 
 for which_cond = 1:total_conds
@@ -79,11 +79,11 @@ for which_cond = 1:total_conds
             line_size = 2;
 
         case 2 % Second set of data
-            color = [1 0 0];
-            marker_edge_color = [1 0 0];
-            marker_face_color = [1 0 0];
-            linestyle = '-';
-            marker = 'o';
+            color = [.5 .5 .5];
+            marker_edge_color = [.5 .5 .5];
+            marker_face_color = [.5 .5 .5];
+            linestyle = '--';
+            marker = '^';
             marker_size = 7;
             line_size = 2;
     end
@@ -131,26 +131,36 @@ end
 
 %% Global figure parameters
 box off
-set(gca,'YLim',[0 1])
+set(gca,'YLim',[.3 .85])
 set(gca,'XLim',[min(x{1})-1 max(x{1})+1])
 set(gca,'XTick',x{1})
 
 % Change axis labels
-ylabel_var = ylabel('Proportion correct');
+ylabel_var = ylabel(['Proportion correct  ']);
 xlabel_var = xlabel('Lag');
-title_var = title('Accuracy given lag');
+title_var = title('With eye filtering (n=22)');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...
-    'fontsize'        , 18 );
+    'fontsize'        , 20 );
 
 set([title_var], ...
-    'fontsize'        , 22, ...
+    'fontsize'        , 24, ...
     'fontweight'      , 'b');
 
 set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
 
-set(gca,'FontSize',14);
+set(gca,'FontSize',18);
+
+% % Rotate y label
+% set(ylabel_var,'Rotation',0,'Position',[-1.75 .575 1]);
+% 
+% % Move GCA over such that y label is in FOV
+% set(gca,'PlotBoxAspectRatioMode','manual')
+% set(gca,'Position',[.2 .1 .6 .7])
+% 
+% figure_pos = get(figure_var,'Position');
+% set(figure_var,'Position',figure_pos+figure_pos*.3)
 
 %Defines the properties of the axes.
 set(gca, ...
