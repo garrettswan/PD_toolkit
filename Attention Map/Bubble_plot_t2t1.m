@@ -58,17 +58,17 @@ box off
 set(gca,'YLim',[0 9])
 set(gca,'XLim',[min(x)-1 max(x)+1])
 
-set(gca,'XTickLabel',['    '; sprintf('  0%c',char(176)); ...
-    sprintf('0-2%c',char(176)); ...
-    sprintf('2-4%c',char(176)); ...
-    sprintf('4-6%c',char(176)); ...
-    sprintf(' >6%c',char(176)); '    ']);
+set(gca,'XTickLabel',['        '; sprintf('    0%c  ',char(176)); ...
+    sprintf('   1-2 %c',char(176)); ...
+    sprintf('   2-5 %c',char(176)); ...
+    sprintf('  5-10 %c',char(176)); ...
+    sprintf('10-13.7%c',char(176)); '        ']);
 
 set(gca,'YTickLabel',[' '; '0';'1';'2';'3';'4';'5';'6';'8';' ']);
 
 % Change axis labels
 ylabel_var = ylabel('Lag');
-xlabel_var = xlabel('Eccentricity');
+xlabel_var = xlabel('Spatial Separation');
 title_var = title('T2|T1');
 
 % Change font of labels
@@ -83,12 +83,12 @@ set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
 
 set(gca,'FontSize',14);
 
-% Rotate y label
-set(ylabel_var,'Rotation',0,'Position',[-.85 3 1]);
-
-% Move GCA over such that y label is in FOV
-set(gca,'PlotBoxAspectRatioMode','manual')
-set(gca,'Position',[.2 .11 .775 .815])
+% % Rotate y label
+% set(ylabel_var,'Rotation',0,'Position',[-.85 3 1]);
+% 
+% % Move GCA over such that y label is in FOV
+% set(gca,'PlotBoxAspectRatioMode','manual')
+% set(gca,'Position',[.2 .11 .775 .815])
 
 %Defines the properties of the axes.
 set(gca, ...

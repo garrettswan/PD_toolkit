@@ -71,8 +71,8 @@ set(gca,'YTickLabel',['        '; sprintf('10 to 6%c',char(176)); ...
     sprintf('6 to 10%c',char(176));'        ']);
 
 % Change axis labels
-ylabel_var = ylabel('Horizontal Position (relative to fixation)');
-xlabel_var = xlabel('Vertical Position (relative to fixation)');
+ylabel_var = ylabel('Vertical Position (relative to fixation)');
+xlabel_var = xlabel('Horizontal Position (relative to fixation)');
 title_var = title('T1');
 
 % Change font of labels
