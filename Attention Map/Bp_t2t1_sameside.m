@@ -6,18 +6,15 @@ hold on
 
 maximum_size = 100;
 
-x = [1:5];
+x = [1:2];
 
-y = [NaN	0.6406	0.2511	0.5819	0.5616	0.6629	0.6811	0.7423; ...
-0.5041	0.3594	0.4983	0.6191	0.6303	0.6997	0.7035	0.7397; ...
-0.5595	0.4548	0.5117	0.5320	0.5575	0.7184	0.7194	0.7596; ...
-0.5927	0.4199	0.4212	0.4960	0.5489	0.6505	0.6748	0.7551; ...
-0.6618	0.3209	0.3723	0.4545	0.5490	0.6863	0.6847	0.7274];
+y = [0.5932    0.4327    0.4646    0.5193    0.5571    0.6602    0.7059  0.7641   ; ...
+    0.5979    0.3696    0.3605    0.4615    0.5368    0.6507    0.6759   0.7647 ];
 
 y = round(y*100);
 
 marker_edge_color = [0 0 0];
-marker_face_color = [.5 .5 .5];
+marker_face_color = [.75 .75 .75];
 marker = 'o';
 font_name = 'Arial';
 font_size = 18;
@@ -58,10 +55,7 @@ box off
 set(gca,'YLim',[0 9])
 set(gca,'XLim',[min(x)-1 max(x)+1])
 
-set(gca,'XTickLabel',['        '; sprintf('    0%c  ',char(176)); ...
-    sprintf('   1-2 %c',char(176)); ...
-    sprintf('   2-5 %c',char(176)); ...
-    sprintf('  5-10 %c',char(176)); ...
+set(gca,'XTickLabel',['        '; sprintf('  5-10 %c',char(176)); ...
     sprintf('10-13.7%c',char(176)); '        ']);
 
 set(gca,'YTickLabel',[' '; '0';'1';'2';'3';'4';'5';'6';'8';' ']);
@@ -69,7 +63,7 @@ set(gca,'YTickLabel',[' '; '0';'1';'2';'3';'4';'5';'6';'8';' ']);
 % Change axis labels
 ylabel_var = ylabel('Lag');
 xlabel_var = xlabel('Spatial Separation');
-title_var = title('T2|T1');
+title_var = title('T2|T1 - Same side');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...

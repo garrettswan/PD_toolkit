@@ -1,21 +1,23 @@
-function Bubble_plot_t2t1
+function Bubble_plot_t1
 
 
-figure('Color',[1 1 1]);
+figure_var = figure('Color',[1 1 1]);
 hold on
 
 maximum_size = 100;
 
-x = [1:3];
+x = [1:5];
 
-y = [.6691 .6349 .7560; ...
-.5086 .6844 .7706; ...
-.5154 .5921 .8077];
+y = [0.6515    0.7496    0.8062    0.7484    0.7056; ...
+0.7266    0.7404    0.7582    0.7712    0.7275; ...
+0.7565    0.7607    0.6928    0.7219    0.7288; ...
+0.6975    0.7564    0.7457    0.7326    0.7180; ...
+0.7477    0.8033    0.8004    0.7618    0.7533];
 
 y = round(y*100);
 
 marker_edge_color = [0 0 0];
-marker_face_color = [.5 .5 .5];
+marker_face_color = [.75 .75 .75];
 marker = 'o';
 font_name = 'Arial';
 font_size = 18;
@@ -53,19 +55,25 @@ end
 
 %% Global figure parameters
 box off
-set(gca,'YLim',[0 4])
+set(gca,'YLim',[0 6])
 set(gca,'XLim',[min(x)-1 max(x)+1])
 
-set(gca,'XTickLabel',['  '; sprintf('0%c',char(176)); ...
-    sprintf('2%c',char(176)); ...
-    sprintf('4%c',char(176)); '  ']);
+set(gca,'XTickLabel',['        '; sprintf('10 to 6%c',char(176)); ...
+    sprintf(' 6 to 2%c',char(176)); ...
+    sprintf('   0%c   ',char(176)); ...
+    sprintf(' 2 to 6%c',char(176)); ...
+    sprintf('6 to 10%c',char(176)); '        ']);
 
-set(gca,'YTickLabel',[' ';'1';'3';'7';' ']);
+set(gca,'YTickLabel',['        '; sprintf('10 to 6%c',char(176)); ...
+    sprintf(' 6 to 2%c',char(176)); ...
+    sprintf('   0%c   ',char(176)); ...
+    sprintf(' 2 to 6%c',char(176)); ...
+    sprintf('6 to 10%c',char(176));'        ']);
 
 % Change axis labels
-ylabel_var = ylabel('Lag');
-xlabel_var = xlabel('Eccentricity');
-title_var = title('Eyetracking T2|T1');
+ylabel_var = ylabel('Vertical Position (relative to fixation)');
+xlabel_var = xlabel('Horizontal Position (relative to fixation)');
+title_var = title('T1 Space');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...
@@ -80,7 +88,7 @@ set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
 set(gca,'FontSize',14);
 
 % % Rotate y label
-% set(ylabel_var,'Rotation',0,'Position',[-.85 2 1]);
+% set(ylabel_var,'Rotation',0,'Position',[-1.5 3 1]);
 % 
 % % Move GCA over such that y label is in FOV
 % set(gca,'PlotBoxAspectRatioMode','manual')
@@ -96,7 +104,7 @@ set(gca, ...
     'YGrid'             , 'off', ... %Adds a thin grid to the y axis
     'XColor'            , [0 0 0], ... %Changes the color of the x axis
     'YColor'            , [0 0 0], ... %Changes the color of the y axis
-    'YTick'             , 0:1:10, ... %Determines the y axis values displayed in the format ymin:interval:ymax
+    'YTick'             , 0:1:6, ... %Determines the y axis values displayed in the format ymin:interval:ymax
     'LineWidth'         , 1.5);
 
 % Important for getting rid of ticks on the top and right sides

@@ -18,8 +18,8 @@ if nargin < 2
     x{1} = [1 2 3 4];
     x{2} = [1 2 3 4];
     
-    y{1} = [.62 .53 .50 .45];
-    y{2} = [.50 .56 .59 .66];
+    y{1} = [.63 .54 .50 .47];
+    y{2} = [.5 .57 .61 .66];
 
     data_error{1} = [.03 .03 .03];
     data_error{2} = [.03 .03 .03];
@@ -131,14 +131,20 @@ end
 
 %% Global figure parameters
 box off
-set(gca,'YLim',[.30 .85])
+set(gca,'YLim',[.2 .7])
 set(gca,'XLim',[min(x{1})-1 max(x{1})+1])
 set(gca,'XTick',x{1})
 
+set(gca,'XTickLabel',[...
+    sprintf(' 1-2 %c   ',char(176)); ...
+    sprintf(' 2-5 %c   ',char(176)); ...
+    sprintf(' 5-10 %c  ',char(176)); ...
+    sprintf('10-13.7 %c',char(176)); '         ']);
+
 % Change axis labels
-ylabel_var = ylabel(['Proportion correct']);
-xlabel_var = xlabel('Lag');
-title_var = title('Without Filtering');
+ylabel_var = ylabel(['Proportion correct (T2|T1)']);
+xlabel_var = xlabel('Spatial Separation');
+title_var = title('Lag 0 vs Lag 3');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...

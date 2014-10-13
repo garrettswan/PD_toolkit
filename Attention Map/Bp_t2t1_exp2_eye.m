@@ -6,18 +6,16 @@ hold on
 
 maximum_size = 100;
 
-x = [1:5];
+x = [1:3];
 
-y = [NaN	0.6602	0.7390	0.7293	0.7272	0.7406	0.7578	0.7288; ...
-0.4590	0.6739	0.7280	0.7487	0.7599	0.7554	0.7266	0.7425; ...
-0.5240	0.7048	0.7513	0.7653	0.7339	0.7155	0.7559	0.7352; ...
-0.5847	0.7044	0.7166	0.7280	0.7322	0.7225	0.7551	0.7518; ...
-0.6299	0.7301	0.7464	0.7186	0.7326	0.7128	0.7530	0.7833];
+y = [0.6830    0.6340    0.7364; ...
+    0.5147    0.6832    0.7571 ; ...
+    0.5287    0.5981    0.7912];
 
 y = round(y*100);
 
 marker_edge_color = [0 0 0];
-marker_face_color = [.5 .5 .5];
+marker_face_color = [.75 .75 .75];
 marker = 'o';
 font_name = 'Arial';
 font_size = 18;
@@ -55,21 +53,19 @@ end
 
 %% Global figure parameters
 box off
-set(gca,'YLim',[0 9])
+set(gca,'YLim',[0 4])
 set(gca,'XLim',[min(x)-1 max(x)+1])
 
-set(gca,'XTickLabel',['        '; sprintf('    0%c  ',char(176)); ...
-    sprintf('   1-2 %c',char(176)); ...
-    sprintf('   2-5 %c',char(176)); ...
-    sprintf('  5-10 %c',char(176)); ...
-    sprintf('10-13.7%c',char(176)); '        ']);
+set(gca,'XTickLabel',['  '; sprintf('0%c',char(176)); ...
+    sprintf('2%c',char(176)); ...
+    sprintf('4%c',char(176)); '  ']);
 
-set(gca,'YTickLabel',[' '; '0';'1';'2';'3';'4';'5';'6';'8';' ']);
+set(gca,'YTickLabel',[' ';'1';'3';'7';' ']);
 
 % Change axis labels
 ylabel_var = ylabel('Lag');
-xlabel_var = xlabel('Spatial Separation');
-title_var = title('T1');
+xlabel_var = xlabel('Eccentricity');
+title_var = title('Eye Reject T2|T1');
 
 % Change font of labels
 set([xlabel_var , ylabel_var], ...
@@ -84,7 +80,7 @@ set([title_var, xlabel_var, ylabel_var], 'FontName','Arial');
 set(gca,'FontSize',14);
 
 % % Rotate y label
-% set(ylabel_var,'Rotation',0,'Position',[-.85 3 1]);
+% set(ylabel_var,'Rotation',0,'Position',[-.85 2 1]);
 % 
 % % Move GCA over such that y label is in FOV
 % set(gca,'PlotBoxAspectRatioMode','manual')

@@ -26,7 +26,7 @@ function figHand = PlotData(data, varargin)
     set(gcf, 'Color', [1 1 1]);
     x = linspace(-180, 180, args.NumberOfBins)';
     n = hist(data.errors(:), x);
-    bar(x, n./sum(n), 'EdgeColor', [1 1 1], 'FaceColor', [.8 .8 .8]);
+    bar(x, n./sum(n), 'EdgeColor', [1 1 1], 'FaceColor', [.5 .5 .5]);
     xlim([-180 180]); hold on;
     set(gca, 'box', 'off');
    % xvar = xlabel('Error (degrees)', 'FontSize', 24);
