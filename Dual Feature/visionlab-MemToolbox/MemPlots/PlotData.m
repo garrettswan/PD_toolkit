@@ -33,7 +33,7 @@ function figHand = PlotData(data, varargin)
    % yvar = ylabel('Probability', 'FontSize', 24);
     topOfY = max(n./sum(n))*1.20;
     ylim([0 topOfY]);
-    
+    ylim([0 .35])
    % set([xvar yvar],'FontName','Arial');
     
   else

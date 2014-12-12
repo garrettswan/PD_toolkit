@@ -15,14 +15,11 @@ function PD_line(x,y,data_error,data_error_type)
 if nargin == 0
 
     x{1} = 1:10;
-    x{2} = 1:10;
     
     % Actual data
-    y{1} = (rand(1,10)+rand(1,10))/2;
-    y{2} = (rand(1,10)+rand(1,10))/2;
+    y{1} = rand(1,10);
 
-    data_error{1} = zeros(1,10)+rand(1,10)*rand*rand;
-    data_error{2} = zeros(1,10)+rand(1,10)*rand*rand;
+    data_error{1} = zeros(1,10)+(.2*rand(1,10)+.4)/10;
 
     % to show error bars, set to 1
     data_error_type = 2;
@@ -103,18 +100,44 @@ for which_cond = 1:total_conds
 
         elseif data_error_type == 2 % Fancy somewhat buggy error gradient
 
-            for whichpoint = 1:length(x{which_cond})
-                if whichpoint < length(x{which_cond})
+            how_many_points = length(x{which_cond})+((length(x{which_cond}))*2)-2;
+            
+            
+            count = 0;
+            for whichpoint = 1:how_many_points
+                 if count < length(x{which_cond})
+                
+                
+                if mod(whichpoint,3)==1 %top to right
+                    count = count + 1;
+                    ave_error = [data_error{which_cond}(count) data_error{which_cond}(count)*.9];
+                    
+                    this_x = x{which_cond}(count);
+                    next_x = x{which_cond}(count)+.1;
+                elseif mod(whichpoint,3)==2 % middle section
+                    ave_error = [data_error{which_cond}(count)*.9 data_error{which_cond}(count)*.9];
+                    
+                    this_x = x{which_cond}(count)+.1;
+                    next_x = x{which_cond}(count+1)+.9;
+                    
+                elseif mod(whichpoint,3)==0 % left to top
+                    ave_error = [data_error{which_cond}(count)*.9 data_error{which_cond}(count+1)*.9];
+                    
+                    this_x = x{which_cond}(count+1)+.9;
+                    next_x = x{which_cond}(count+1)+1;
+                end
+                    
+                
 
-                    ave_error = mean([data_error{which_cond}(whichpoint) data_error{which_cond}(whichpoint+1)]);
+                % ave_error = mean([data_error{which_cond}(whichpoint) data_error{which_cond}(whichpoint+1)]);
 
-                    a = [x{which_cond}(whichpoint);x{which_cond}(whichpoint);x{which_cond}(whichpoint+1);x{which_cond}(whichpoint+1)];
-                    b = [y{which_cond}(whichpoint)+ave_error;y{which_cond}(whichpoint)-ave_error; ...
-                        y{which_cond}(whichpoint+1)-ave_error;y{which_cond}(whichpoint+1)+ave_error];
+                    a = [this_x;this_x;next_x;next_x];
+                    b = [y{which_cond}(count)+ave_error(1);y{which_cond}(count)-ave_error(1); ...
+                        y{which_cond}(count+1)-ave_error(2);y{which_cond}(count+1)+ave_error(2)];
 
                     patch(a,b,color,'FaceAlpha',.25,'EdgeColor',[1 1 1]);
 
-                end
+                 end
             end
         end
     end

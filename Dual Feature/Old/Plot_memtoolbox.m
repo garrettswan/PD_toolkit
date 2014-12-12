@@ -6,7 +6,7 @@ plot_reduced_data = 1;
 
 %plot_full_data = 0;
 
-save_plots = 1; % note: each new figure overwrites the previous
+save_plots = 0; % note: each new figure overwrites the previous
 
 % Direction first, surprise = 26
 plot_group_1_pre = 0;
@@ -46,6 +46,9 @@ plot_exp2_pre = 0;
 plot_exp2_post_c = 0;
 plot_exp2_post_d = 0;
 
+plot_model_pre = 1;
+plot_model_surprise = 1;
+plot_model_post = 1;
 
 title_size = 30;
 title_weight = 'Bold';
@@ -634,6 +637,98 @@ if plot_exp2_post_d
     set([sd pm],'FontSize',parameter_size,'FontName',font);
     
     filename = 'Pics/exp2_post_d';
+    set(gcf, 'PaperPositionMode', 'auto');
+    printcommand = sprintf('print -depsc2 %s',filename);   %set up the command to output it
+    
+    if save_plots
+        eval(printcommand)
+    end
+    
+end
+
+if plot_model_pre
+    
+    pre = load('pre_model');
+    PlotData(pre.deviations);
+    
+    tvar = title('Pre_model');
+    xvar = xlabel('Error (degrees)');
+    yvar = ylabel('Probability');
+    
+    set([xvar yvar tvar],'FontName',font);
+    set([tvar],'FontSize',title_size,'FontWeight',title_weight);
+    set([xvar yvar],'FontSize',label_size);
+    set(gca,'FontSize',axis_size);
+    
+    %sd = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_sigma_y_loc,['\sigma = ' num2str(nanmean(data_4.group_data(4).post_d))]);
+    %pm = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_pm_y_loc,['Pm = ' num2str(1-nanmean(data_4.group_data(4).post_dg))]);
+    %pm = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_pm_y_loc,['Pm = ']);
+    %set([sd pm],'FontSize',parameter_size,'FontName',font);
+    
+    filename = 'Pics/model_pre';
+    set(gcf, 'PaperPositionMode', 'auto');
+    printcommand = sprintf('print -depsc2 %s',filename);   %set up the command to output it
+    
+    if save_plots
+        eval(printcommand)
+    end
+    
+end
+
+if plot_model_surprise
+    
+    sur_1 = load('surprise_model_1');
+    sur_2 = load('surprise_model_2');
+    sur_3 = load('surprise_model_3');
+    
+    sur_3_deviations = rad2deg(wrap(deg2rad(sur_3.deviations+180)));
+
+    PlotData([sur_1.deviations sur_2.deviations sur_3_deviations]);
+    
+    tvar = title('Model surprise');
+    xvar = xlabel('Error (degrees)');
+    yvar = ylabel('Probability');
+    
+    set([xvar yvar tvar],'FontName',font);
+    set([tvar],'FontSize',title_size,'FontWeight',title_weight);
+    set([xvar yvar],'FontSize',label_size);
+    set(gca,'FontSize',axis_size);
+    
+    %sd = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_sigma_y_loc,['\sigma = ' num2str(nanmean(data_4.group_data(4).post_d))]);
+    %pm = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_pm_y_loc,['Pm = ' num2str(1-nanmean(data_4.group_data(4).post_dg))]);
+    %pm = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_pm_y_loc,['Pm = ']);
+    %set([sd pm],'FontSize',parameter_size,'FontName',font);
+    
+    filename = 'Pics/model_surprise';
+    set(gcf, 'PaperPositionMode', 'auto');
+    printcommand = sprintf('print -depsc2 %s',filename);   %set up the command to output it
+    
+    if save_plots
+        eval(printcommand)
+    end
+    
+end
+
+if plot_model_post
+    
+    post = load('post_model');
+    PlotData(post.deviations);
+    
+    tvar = title('Post model');
+    xvar = xlabel('Error (degrees)');
+    yvar = ylabel('Probability');
+    
+    set([xvar yvar tvar],'FontName',font);
+    set([tvar],'FontSize',title_size,'FontWeight',title_weight);
+    set([xvar yvar],'FontSize',label_size);
+    set(gca,'FontSize',axis_size);
+    
+    %sd = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_sigma_y_loc,['\sigma = ' num2str(nanmean(data_4.group_data(4).post_d))]);
+    %pm = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_pm_y_loc,['Pm = ' num2str(1-nanmean(data_4.group_data(4).post_dg))]);
+    %pm = text(parameter_x_loc,max(get(gca,'Ylim'))*parameter_pm_y_loc,['Pm = ']);
+    %set([sd pm],'FontSize',parameter_size,'FontName',font);
+    
+    filename = 'Pics/model_post';
     set(gcf, 'PaperPositionMode', 'auto');
     printcommand = sprintf('print -depsc2 %s',filename);   %set up the command to output it
     
